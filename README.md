@@ -1,4 +1,14 @@
-备注：只做了部分样式修改，功能逻辑没有改动
+# 组件来源
+
+**备注：只做了部分样式修改，功能逻辑没有改动**
+
+## github 仓库
+
+https://github.com/lyctea/vue-schedule-calendar
+
+## 在线 demo
+
+https://yscoder.github.io/vue-schedule-calendar/
 
 # vue-schedule-calendar
 
