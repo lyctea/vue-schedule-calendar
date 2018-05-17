@@ -1,7 +1,6 @@
 <template>
     <div id="app"
          class="demo">
-        <h1 class="demo-title">Vue Schedule Calendar</h1>
         <schedule-calendar :events="events"
                             :dateItemRender="itemRender"
                             @event-dragend="changeDate"></schedule-calendar>
