@@ -1,3 +1,5 @@
+备注：只做了部分样式修改，功能逻辑没有改动
+
 # vue-schedule-calendar
 
 [demo](https://yscoder.github.io/vue-schedule-calendar/)

@@ -24,109 +24,107 @@
     </header>
 </template>
 <script>
-import { calcPrevMonth, calcNextMonth } from './utils'
-import picker from './picker'
+import { calcPrevMonth, calcNextMonth } from './utils';
+import picker from './picker';
 
 export default {
-    components: {
-        picker
+  components: {
+    picker
+  },
+  props: {
+    year: Number,
+    month: Number
+  },
+  data() {
+    return {
+      pickerVisible: false
+    };
+  },
+  computed: {},
+  methods: {
+    updateValue(year, month = this.month) {
+      this.$emit('updateValue', year, month);
     },
-    props: {
-        year: Number,
-        month: Number
+    prevYear() {
+      this.updateValue(this.year - 1);
     },
-    data() {
-        return {
-            pickerVisible: false
-        }
+    nextYear() {
+      this.updateValue(this.year + 1);
     },
-    computed: {
-
+    prevMonth() {
+      const { year, month } = calcPrevMonth(this.year, this.month);
+      this.updateValue(year, month);
     },
-    methods: {
-        updateValue(year, month = this.month) {
-            this.$emit('updateValue', year, month)
-        },
-        prevYear() {
-            this.updateValue(this.year - 1)
-        },
-        nextYear() {
-            this.updateValue(this.year + 1)
-        },
-        prevMonth() {
-            const { year, month } = calcPrevMonth(this.year, this.month)
-            this.updateValue(year, month)
-        },
-        nextMonth() {
-            const { year, month } = calcNextMonth(this.year, this.month)
-            this.updateValue(year, month)
-        },
-        clickOutSide(e) {
-            if (this.pickerVisible && !this.$refs.picker.contains(e.target)) {
-                this.pickerVisible = false
-            }
-        }
+    nextMonth() {
+      const { year, month } = calcNextMonth(this.year, this.month);
+      this.updateValue(year, month);
     },
-    created() {
-        document.addEventListener('mouseup', this.clickOutSide)
-    },
-    destoryed() {
-        document.removeEventListener('mouseup', this.clickOutSide)
+    clickOutSide(e) {
+      if (this.pickerVisible && !this.$refs.picker.contains(e.target)) {
+        this.pickerVisible = false;
+      }
     }
-}
+  },
+  created() {
+    document.addEventListener('mouseup', this.clickOutSide);
+  },
+  destoryed() {
+    document.removeEventListener('mouseup', this.clickOutSide);
+  }
+};
 </script>
 <style lang="less">
-@import "./variables.less";
+@import './variables.less';
 
 .schedule-calendar- {
-    &hd {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        align-items: center;
-        height: @sc-header-height;
-        padding: @sc-header-padding 0;
-        font-size: @sc-header-fs;
-        line-height: @sc-header-height - @sc-header-padding * 2;
-        background: @sc-primary-color;
-        color: @sc-body-color;
-        user-select: none;
-    }
-    &arrow {
-        font-family: consolas;
-        font-size: inherit;
-        font-weight: 400;
-        padding: 0 10px;
-        height: 100%;
-        color: @sc-primary-light-color;
+  &hd {
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: @sc-header-height;
+    padding: @sc-header-padding 0;
+    font-size: @sc-header-fs;
+    line-height: @sc-header-height - @sc-header-padding * 2;
+    // background: @sc-primary-color;
+    // color: @sc-body-color;
+    color: #000;
+    user-select: none;
+  }
+  &arrow {
+    font-family: consolas;
+    font-size: inherit;
+    font-weight: 400;
+    padding: 0 10px;
+    height: 100%;
+    color: @sc-primary-color;
 
-        &:active {
-            background: darken(@sc-primary-dark-color, 15%);
-        }
-        &.double-arrow {
-            letter-spacing: -3px;
-        }
+    &:active {
+      background: darken(@sc-primary-dark-color, 15%);
     }
-    &picker {
-        position: relative;
-        z-index: 20;
-        padding: 4px 5px;
-        height: 100%;
+    &.double-arrow {
+      letter-spacing: -3px;
     }
-    &arrow,
-    &display {
-        border-radius: 2px;
-        transition: .2s ease-in-out;
-        &:hover {
-            color: #fff;
-            background: @sc-primary-dark-color;
-        }
+  }
+  &picker {
+    position: relative;
+    z-index: 20;
+    padding: 4px 5px;
+    height: 100%;
+  }
+  &arrow,
+  &display {
+    border-radius: 2px;
+    transition: 0.2s ease-in-out;
+    &:hover {
+      color: #fff;
+      background: @sc-primary-dark-color;
     }
-    &display {
-        padding: 0 10px;
-        line-height: 32px;
-        cursor: pointer;
-    }
+  }
+  &display {
+    padding: 0 10px;
+    line-height: 32px;
+    cursor: pointer;
+  }
 }
-
 </style>
